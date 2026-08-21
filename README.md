@@ -1,6 +1,6 @@
 # Octopus Connections – Tampermonkey Scripts
 
-![GitHub last commit](https://img.shields.io/github/last-commit/pd-octo/tampermoney)
+![GitHub last commit](https://img.shields.io/github/last-commit/pd-octo/tampermonkey)
 ![Scripts](https://img.shields.io/badge/scripts-6-blue)
 
 
