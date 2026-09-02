@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kraken: Shell personal details
 // @namespace    https://github.com/pd-octo/tampermoney
-// @version      1.1.2
+// @version      1.1.3
 // @description  Paste single-line personal details from clipboard and auto-fill User details fields on Kraken
 // @author       Paul Davidson
 // @match        https://*.octopus.energy/*
@@ -97,10 +97,10 @@
     const win = document.defaultView || window;
     const jq = win.$ || win.jQuery;
 
-    // P value is 165 — hardcoded since Select2 lazy-loads options
+    // P value is 22 — hardcoded since Select2 lazy-loads options
     const option = new Option(
       "P (Octopus Energy, Bulb : Domestic)",
-      "165",
+      "22",
       true,
       true
     );
@@ -110,7 +110,7 @@
       if (statusEl) statusEl.textContent = "OPS: set to P";
     } else {
       sel.appendChild(option);
-      sel.value = "165";
+      sel.value = "22";
       sel.dispatchEvent(new Event("change", { bubbles: true }));
       if (statusEl) statusEl.textContent = "OPS: set to P";
     }
