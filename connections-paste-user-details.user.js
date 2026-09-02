@@ -97,10 +97,10 @@
     const win = document.defaultView || window;
     const jq = win.$ || win.jQuery;
 
-    // P value is 197 — hardcoded since Select2 lazy-loads options
+    // P value is 165 — hardcoded since Select2 lazy-loads options
     const option = new Option(
       "P (Octopus Energy, Bulb : Domestic)",
-      "197",
+      "165",
       true,
       true
     );
@@ -110,7 +110,7 @@
       if (statusEl) statusEl.textContent = "OPS: set to P";
     } else {
       sel.appendChild(option);
-      sel.value = "197";
+      sel.value = "165";
       sel.dispatchEvent(new Event("change", { bubbles: true }));
       if (statusEl) statusEl.textContent = "OPS: set to P";
     }
