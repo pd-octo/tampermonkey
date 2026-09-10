@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Kraken - Account Note Presets
-// @namespace    https://github.com/pd-octo/tampermoney
+// @namespace    https://github.com/pd-octo/tampermonkey
 // @version      1.0.0
 // @description  Adds a buttons to create pinned account notes from preset options.
 // @match        https://kraken.octopus.energy/*/notes/add/*
 // @match        https://kraken.octopus.energy/*/notes/add/
 // @grant        GM_addStyle
-// @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermoney/main/kraken-account-note-presets.js
-// @updateURL    https://raw.githubusercontent.com/pd-octo/tampermoney/main/kraken-account-note-presets.js
+// @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/kraken-account-note-presets.user.js
+// @updateURL    https://raw.githubusercontent.com/pd-octo/tampermonkey/main/kraken-account-note-presets.user.js
 // ==/UserScript==
 
 (function () {
