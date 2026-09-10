@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Kraken → Field Appointment
-// @namespace    https://github.com/pd-octo/tampermoney
+// @namespace    https://github.com/pd-octo/tampermonkey
 // @version      1.0.0
 // @description  Open Field and pre-populate appointment details
 // @match        https://kraken.octopus.energy/*
 // @match        https://field.oes-prod.energy/*
 // @grant        GM_setValue
 // @grant        GM_getValue
-// @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermoney/main/kraken-field-button.user.js
-// @updateURL    https://raw.githubusercontent.com/pd-octo/tampermoney/main/kraken-field-button.user.js
+// @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/kraken-field-button.user.js
+// @updateURL    https://raw.githubusercontent.com/pd-octo/tampermonkey/main/kraken-field-button.user.js
 // ==/UserScript==
 
 (async function () {
