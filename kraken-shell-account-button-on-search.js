@@ -6,8 +6,8 @@
 // @match        https://kraken.octopus.energy/app/accounts/*
 // @run-at       document-idle
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermoney/main/new-shell-account-button.user.js
-// @updateURL    https://raw.githubusercontent.com/pd-octo/tampermoney/main/new-shell-account-button.user.js
+// @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermoney/main/kraken-shell-account-button-on-search.js
+// @updateURL    https://raw.githubusercontent.com/pd-octo/tampermoney/main/kraken-shell-account-button-on-search.js
 // ==/UserScript==
 
 (function () {
