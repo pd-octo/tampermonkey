@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         Kraken: Shell personal details
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.1.0
+// @version      1.2.0
 // @description  Paste single-line personal details from clipboard and auto-fill User details fields on Kraken
 // @author       Paul Davidson
 // @match        https://*.octopus.energy/*
 // @match        https://kraken.octopus.energy/*
+// @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-paste-user-details.user.js
 // @updateURL    https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-paste-user-details.user.js
@@ -13,6 +14,11 @@
 
 (function () {
   "use strict";
+
+  if (location.hostname === "pd-octo.github.io" && location.pathname.indexOf("/tampermonkey") === 0) {
+    try { localStorage.setItem("tm-installed:connections-paste-user-details.user.js", "1"); } catch (e) {}
+    return;
+  }
 
   const toTitleish = s =>
     s.trim().replace(/\s+/g, " ").replace(/\b([A-Z])([A-Z]+)\b/g, (_, a, b) => a + b.toLowerCase());

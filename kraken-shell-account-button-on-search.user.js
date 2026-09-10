@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Kraken - New Shell Account Button
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      2.0.0
+// @version      2.1.0
 // @description  Adds a Create New Shell Account button beneath Enrol New Customer in Kraken.
 // @match        https://kraken.octopus.energy/app/accounts/*
+// @match        https://pd-octo.github.io/tampermonkey/*
 // @run-at       document-idle
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/kraken-shell-account-button-on-search.user.js
@@ -12,6 +13,11 @@
 
 (function () {
     'use strict';
+
+    if (location.hostname === "pd-octo.github.io" && location.pathname.indexOf("/tampermonkey") === 0) {
+        try { localStorage.setItem("tm-installed:kraken-shell-account-button-on-search.user.js", "1"); } catch (e) {}
+        return;
+    }
 
     const BUTTON_ID = 'tm-new-shell-account-button';
 

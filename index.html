@@ -255,6 +255,21 @@ h1{
 .install:hover{opacity:.88;}
 .install:active{transform:translateY(1px);}
 
+.installed{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:13.5px;
+    font-weight:500;
+    padding:8px 18px;
+    border-radius:7px;
+    color:#2a9d5c;
+    background:rgba(42,157,92,.1);
+    border:1px solid rgba(42,157,92,.3);
+}
+.installed svg{width:14px;height:14px;flex:none;}
+
 a:focus-visible,button:focus-visible{
     outline:2px solid var(--accent);
     outline-offset:2px;
@@ -322,7 +337,7 @@ footer a{color:var(--muted);}
     </div>
     <div class="list">
 
-        <div class="script">
+        <div class="script" data-file="connections-paste-user-details.user.js">
             <div>
                 <h3>Shell personal details</h3>
                 <p>Paste a customer's details straight into a new Kraken account.</p>
@@ -331,7 +346,7 @@ footer a{color:var(--muted);}
             <a class="install" href="https://github.com/pd-octo/tampermonkey/raw/main/connections-paste-user-details.user.js">Install</a>
         </div>
 
-        <div class="script">
+        <div class="script" data-file="connections-shell-account-address.user.js">
             <div>
                 <h3>Shell account address</h3>
                 <p>Paste a billing address into the account form.</p>
@@ -340,7 +355,7 @@ footer a{color:var(--muted);}
             <a class="install" href="https://github.com/pd-octo/tampermonkey/raw/main/connections-shell-account-address.user.js">Install</a>
         </div>
 
-        <div class="script">
+        <div class="script" data-file="connections-new-property.user.js">
             <div>
                 <h3>New property</h3>
                 <p>Add a property under the right account type — existing or new.</p>
@@ -349,7 +364,7 @@ footer a{color:var(--muted);}
             <a class="install" href="https://github.com/pd-octo/tampermonkey/raw/main/connections-new-property.user.js">Install</a>
         </div>
 
-        <div class="script">
+        <div class="script" data-file="connections-paste-address-in-properties.user.js">
             <div>
                 <h3>Paste address into a property</h3>
                 <p>Drop a full UK address into the property form in one go.</p>
@@ -358,7 +373,7 @@ footer a{color:var(--muted);}
             <a class="install" href="https://github.com/pd-octo/tampermonkey/raw/main/connections-paste-address-in-properties.user.js">Install</a>
         </div>
 
-        <div class="script">
+        <div class="script" data-file="kraken-account-note-presets.user.js">
             <div>
                 <h3>Account note presets</h3>
                 <p>Add common account notes quickly using preset options.</p>
@@ -367,7 +382,7 @@ footer a{color:var(--muted);}
             <a class="install" href="https://github.com/pd-octo/tampermonkey/raw/main/kraken-account-note-presets.user.js">Install</a>
         </div>
 
-        <div class="script">
+        <div class="script" data-file="kraken-shell-account-button-on-search.user.js">
             <div>
                 <h3>Shell account from search</h3>
                 <p>Adds a quick button to create a new shell account from Kraken search.</p>
@@ -387,7 +402,7 @@ footer a{color:var(--muted);}
     </div>
     <div class="list">
 
-        <div class="script">
+        <div class="script" data-file="connections-enrol-helper.user.js">
             <div>
                 <h3>Enrol helper</h3>
                 <p>Sets the earliest supply start date and registration type, then enrols the supply.</p>
@@ -407,7 +422,7 @@ footer a{color:var(--muted);}
     </div>
     <div class="list">
 
-        <div class="script">
+        <div class="script" data-file="kraken-field-button.user.js">
             <div>
                 <h3>Open Account in Field</h3>
                 <p>Opens Kraken Field with the account number and property ID already filled in.</p>
@@ -443,6 +458,33 @@ footer a{color:var(--muted);}
 
     btn.addEventListener('click', function(){
         set(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+</script>
+
+<script>
+(function(){
+    // Each script marks itself installed by writing to localStorage
+    // the first time it runs on this page (see the top of each .user.js file).
+    var cards = document.querySelectorAll('.script[data-file]');
+
+    cards.forEach(function(card){
+        var file = card.getAttribute('data-file');
+        var installed = false;
+        try {
+            installed = localStorage.getItem('tm-installed:' + file) === '1';
+        } catch (e) {}
+
+        if (!installed) return;
+
+        card.classList.add('is-installed');
+        var link = card.querySelector('.install');
+        if (!link) return;
+
+        var badge = document.createElement('span');
+        badge.className = 'installed';
+        badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Installed';
+        link.replaceWith(badge);
     });
 })();
 </script>

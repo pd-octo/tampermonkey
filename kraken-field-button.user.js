@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Kraken → Field Appointment
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.0.0
+// @version      1.1.0
 // @description  Open Field and pre-populate appointment details
 // @match        https://kraken.octopus.energy/*
 // @match        https://field.oes-prod.energy/*
+// @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/kraken-field-button.user.js
@@ -13,6 +14,11 @@
 
 (async function () {
     'use strict';
+
+    if (location.hostname === "pd-octo.github.io" && location.pathname.indexOf("/tampermonkey") === 0) {
+        try { localStorage.setItem("tm-installed:kraken-field-button.user.js", "1"); } catch (e) {}
+        return;
+    }
 
     ////////////////////////////////////////////////////////////
     // Utility
