@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Connections: New property (Existing vs New account)
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.0.0
+// @version      1.1.0
 // @description  Paste UK postcode from clipboard, set today's date, and choose either Existing account or New account in same portfolio (SPA-safe)
 // @match        https://kraken.octopus.energy/accounts/*/properties/add/*
+// @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-new-property.user.js
 // @updateURL    https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-new-property.user.js
@@ -41,6 +42,11 @@ function ensureStyles() {
 
 (function () {
   "use strict";
+
+  if (location.hostname === "pd-octo.github.io" && location.pathname.indexOf("/tampermonkey") === 0) {
+    try { localStorage.setItem("tm-installed:connections-new-property.user.js", "1"); } catch (e) {}
+    return;
+  }
 
   const BAR_ID = "km-conn-buttons-bar";
   const POSTCODE_RE = /\b([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})\b/i;

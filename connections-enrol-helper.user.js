@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Kraken Enrol Helper - Set SSD & Reg Type (Top Button)
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.1.0
+// @version      1.2.0
 // @description  Sets Supply start date to Earliest SSD, selects New Connection reg type, clicks Enrol.
 // @match        https://kraken.octopus.energy/electricity/journeys/meter-point/*/enrol/
 // @match        https://kraken.octopus.energy/electricity/journeys/meter-point/*/enrol
+// @match        https://pd-octo.github.io/tampermonkey/*
 // @run-at       document-idle
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-enrol-helper.user.js
@@ -13,6 +14,11 @@
 
 (function () {
     'use strict';
+
+    if (location.hostname === 'pd-octo.github.io' && location.pathname.indexOf('/tampermonkey') === 0) {
+        try { localStorage.setItem('tm-installed:connections-enrol-helper.user.js', '1'); } catch (e) {}
+        return;
+    }
 
     function getFieldByLabel(labelText) {
         const labels = Array.from(document.querySelectorAll('label'));

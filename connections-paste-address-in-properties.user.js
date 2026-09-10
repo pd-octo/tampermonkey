@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Kraken: Paste full address in Properties (scoped + styled)
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.5.0
+// @version      1.6.0
 // @description  Button to paste UK address from clipboard into Add Property form (only on add-without-meter-points route), SPA-safe
 // @author       Paul Davidson
 // @match        https://kraken.octopus.energy/*properties*
+// @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-paste-address-in-properties.user.js
 // @updateURL    https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-paste-address-in-properties.user.js
@@ -12,6 +13,11 @@
 
 (function () {
   "use strict";
+
+  if (location.hostname === "pd-octo.github.io" && location.pathname.indexOf("/tampermonkey") === 0) {
+    try { localStorage.setItem("tm-installed:connections-paste-address-in-properties.user.js", "1"); } catch (e) {}
+    return;
+  }
 
   const BTN_ID = "km-paste-address-btn";
   const POSTCODE_RE = /\b([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})\b/i;

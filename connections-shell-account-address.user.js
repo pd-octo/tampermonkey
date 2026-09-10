@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         Kraken: Shell account address
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.1.0
+// @version      1.2.0
 // @description  Paste a single-line UK address from clipboard and auto-fill Billing address fields on Kraken
 // @author       Paul Davidson
 // @match        https://*.octopus.energy/*
 // @match        https://kraken.octopus.energy/*
+// @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-shell-account-address.user.js
 // @updateURL    https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-shell-account-address.user.js
@@ -13,6 +14,11 @@
 
 (function () {
   "use strict";
+
+  if (location.hostname === "pd-octo.github.io" && location.pathname.indexOf("/tampermonkey") === 0) {
+    try { localStorage.setItem("tm-installed:connections-shell-account-address.user.js", "1"); } catch (e) {}
+    return;
+  }
 
   /*** Helpers ***/
   const UK_POSTCODE_RE = /([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2})$/i;
