@@ -1,7 +1,7 @@
 # Octopus Connections – Tampermonkey Scripts
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/pd-octo/tampermonkey)
-![Scripts](https://img.shields.io/badge/scripts-6-blue)
+![Scripts](https://img.shields.io/badge/scripts-7-blue)
 
 
 A collection of Tampermonkey userscripts to make common Connections tasks in Kraken faster and reduce repetitive manual work.
@@ -81,6 +81,16 @@ Paste a billing address from a single line into the Shell/Kraken account.
 **Install**
 
 https://raw.githubusercontent.com/pd-octo/tampermoney/main/connections-shell-account-address.user.js
+
+---
+
+### Kraken Field - Copy Job / Date / Slot
+
+Adds buttons on a Field job page to copy the appointment's job reference, date and slot in the formats used for Connections, Proactive and NSMR messages.
+
+**Install**
+
+https://raw.githubusercontent.com/pd-octo/tampermonkey/main/kraken-field-copy-slot.user.js
 
 ---
 
