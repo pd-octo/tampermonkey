@@ -71,22 +71,47 @@
 
 function setOpsTeam(statusEl) {
   const sel = document.getElementById('id_operations_team');
-  if (!sel) { if (statusEl) statusEl.textContent = 'OPS: select not found'; return; }
+
+  if (!sel) {
+    if (statusEl) statusEl.textContent = 'OPS: select not found';
+    return;
+  }
+
+  const teams = [
+    { name: 'MCR1', value: '63' },
+    { name: 'MCR3', value: '68' },
+    { name: 'MCR4', value: '72' },
+    { name: 'MCR5', value: '73' },
+    { name: 'MCR6', value: '79' },
+    { name: 'MCR7', value: '82' },
+    { name: 'MCR8', value: '164' },
+    { name: 'MCR9', value: '165' },
+    { name: 'MCR10', value: '495' },
+    { name: 'MCR11', value: '659' }
+  ];
+
+  const team = teams[Math.floor(Math.random() * teams.length)];
+
+  const label =
+    `${team.name} (Octopus Energy, Affect Energy, Co-op Energy, Bulb, Ebico Living : Domestic)`;
+
+  const option = new Option(label, team.value, true, true);
 
   const win = document.defaultView || window;
   const jq = win.$ || win.jQuery;
 
-  // MCR9 value is 165 — hardcoded since Select2 lazy-loads options
-  const option = new Option('MCR9 (Octopus Energy, Affect Energy, Co-op Energy, Bulb, Ebico Living : Domestic)', '165', true, true);
-
   if (jq) {
-    jq('#id_operations_team').append(option).trigger('change');
-    if (statusEl) statusEl.textContent = 'OPS: set via jQuery';
+    jq('#id_operations_team')
+      .append(option)
+      .trigger('change');
+
+    if (statusEl) statusEl.textContent = `OPS: ${team.name}`;
   } else {
     sel.appendChild(option);
-    sel.value = '165';
+    sel.value = team.value;
     sel.dispatchEvent(new Event('change', { bubbles: true }));
-    if (statusEl) statusEl.textContent = 'OPS: set via native';
+
+    if (statusEl) statusEl.textContent = `OPS: ${team.name}`;
   }
 }
 
