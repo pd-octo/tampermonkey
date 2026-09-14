@@ -1,191 +1,435 @@
 // ==UserScript==
 // @name         Kraken: Shell personal details
-// @namespace    https://github.com/pd-octo/tampermonkey
+// @namespace    https://github.com/pd-octo/tampermoney
 // @version      1.2.0
 // @description  Paste single-line personal details from clipboard and auto-fill User details fields on Kraken
 // @author       Paul Davidson
 // @match        https://*.octopus.energy/*
 // @match        https://kraken.octopus.energy/*
-// @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-paste-user-details.user.js
-// @updateURL    https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-paste-user-details.user.js
+// @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermoney/main/connections-paste-user-details.user.js
+// @updateURL    https://raw.githubusercontent.com/pd-octo/tampermoney/main/connections-paste-user-details.user.js
 // ==/UserScript==
 
 (function () {
   "use strict";
 
-  if (location.hostname === "pd-octo.github.io" && location.pathname.indexOf("/tampermonkey") === 0) {
-    try { localStorage.setItem("tm-installed:connections-paste-user-details.user.js", "1"); } catch (e) {}
-    return;
-  }
-
   const toTitleish = s =>
-    s.trim().replace(/\s+/g, " ").replace(/\b([A-Z])([A-Z]+)\b/g, (_, a, b) => a + b.toLowerCase());
+    s.trim()
+      .replace(/\s+/g, " ")
+      .replace(/\b([A-Z])([A-Z]+)\b/g, (_, a, b) => a + b.toLowerCase());
 
   const clean = s => toTitleish(s.trim());
 
   const norm = s =>
-    (s || "").toLowerCase().replace(/[*:]/g, "").replace(/\s+/g, " ").trim();
+    (s || "")
+      .toLowerCase()
+      .replace(/[*:]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
 
   function findInput(preferredLabels = [], keywords = []) {
     const want = preferredLabels.map(norm);
-    const labelEls = Array.from(document.querySelectorAll("label, [aria-label]"));
+
+    const labelEls = Array.from(
+      document.querySelectorAll("label, [aria-label]")
+    );
+
     const labelMatch = labelEls.find(l => {
-      const t = norm(l.textContent || l.getAttribute("aria-label"));
+      const t = norm(
+        l.textContent || l.getAttribute("aria-label")
+      );
+
       return want.some(w => t === w || t.startsWith(w));
     });
+
     if (labelMatch) {
       const forId = labelMatch.getAttribute("for");
-      if (forId) { const byId = document.getElementById(forId); if (byId) return byId; }
+
+      if (forId) {
+        const byId = document.getElementById(forId);
+        if (byId) return byId;
+      }
+
       const nested = labelMatch.querySelector("input, select");
       if (nested) return nested;
+
       let sib = labelMatch.nextElementSibling;
+
       while (sib && sib.querySelector) {
         const inp = sib.querySelector("input, select");
         if (inp) return inp;
         sib = sib.nextElementSibling;
       }
     }
-    const allInputs = Array.from(document.querySelectorAll("input, select"));
+
+    const allInputs = Array.from(
+      document.querySelectorAll("input, select")
+    );
+
     const kw = keywords.map(k => k.toLowerCase());
+
     return allInputs.find(inp => {
-      const attr = ((inp.name || "") + " " + (inp.id || "") + " " + (inp.placeholder || "")).toLowerCase();
+      const attr = (
+        (inp.name || "") +
+        " " +
+        (inp.id || "") +
+        " " +
+        (inp.placeholder || "")
+      ).toLowerCase();
+
       return kw.some(k => attr.includes(k));
     }) || null;
   }
 
   function setVal(el, val) {
     if (!el) return;
+
     const v = val || "";
+
     if (el.tagName === "SELECT") {
-      const match = Array.from(el.options).find(o => o.value === v || o.textContent.trim() === v || o.textContent.includes(v));
+      const match = Array.from(el.options).find(
+        o =>
+          o.value === v ||
+          o.textContent.trim() === v ||
+          o.textContent.includes(v)
+      );
+
       el.value = match ? match.value : v;
     } else {
       el.value = v;
     }
-    el.dispatchEvent(new Event("input", { bubbles: true }));
-    el.dispatchEvent(new Event("change", { bubbles: true }));
-    el.dispatchEvent(new Event("blur", { bubbles: true }));
+
+    el.dispatchEvent(
+      new Event("input", { bubbles: true })
+    );
+
+    el.dispatchEvent(
+      new Event("change", { bubbles: true })
+    );
+
+    el.dispatchEvent(
+      new Event("blur", { bubbles: true })
+    );
   }
 
-function setOpsTeam(statusEl) {
-  const sel = document.getElementById('id_operations_team');
+  function setOpsTeam(statusEl) {
+    const sel = document.getElementById("id_operations_team");
 
-  if (!sel) {
-    if (statusEl) statusEl.textContent = 'OPS: select not found';
-    return;
+    if (!sel) {
+      if (statusEl) {
+        statusEl.textContent = "OPS: select not found";
+      }
+      return;
+    }
+
+    const teams = [
+      { name: "MCR1", value: "63" },
+      { name: "MCR3", value: "68" },
+      { name: "MCR4", value: "72" },
+      { name: "MCR5", value: "73" },
+      { name: "MCR6", value: "79" },
+      { name: "MCR7", value: "82" },
+      { name: "MCR8", value: "164" },
+      { name: "MCR9", value: "165" },
+      { name: "MCR10", value: "495" },
+      { name: "MCR11", value: "659" }
+    ];
+
+    const team =
+      teams[Math.floor(Math.random() * teams.length)];
+
+    console.log("Random OPS team:", team);
+
+    const label =
+      `${team.name} ` +
+      `(Octopus Energy, Affect Energy, Co-op Energy, Bulb, Ebico Living : Domestic)`;
+
+    const win = document.defaultView || window;
+    const jq = win.$ || win.jQuery;
+
+    if (jq) {
+      const $sel = jq("#id_operations_team");
+
+      // Clear current selection
+      $sel.val(null).trigger("change");
+
+      // Remove options previously injected by this script
+      $sel
+        .find('option[data-mcr-injected="1"]')
+        .remove();
+
+      // Add selected team
+      const option = new Option(
+        label,
+        team.value,
+        true,
+        true
+      );
+
+      option.dataset.mcrInjected = "1";
+
+      $sel.append(option);
+
+      // Explicitly select it
+      $sel
+        .val(team.value)
+        .trigger("change");
+
+      if (statusEl) {
+        statusEl.textContent = `OPS: ${team.name}`;
+      }
+
+    } else {
+
+      // Native fallback
+
+      Array.from(sel.options).forEach(option => {
+        if (option.dataset.mcrInjected === "1") {
+          option.remove();
+        }
+      });
+
+      sel.value = "";
+
+      const option = new Option(
+        label,
+        team.value,
+        true,
+        true
+      );
+
+      option.dataset.mcrInjected = "1";
+
+      sel.appendChild(option);
+      sel.value = team.value;
+
+      sel.dispatchEvent(
+        new Event("input", { bubbles: true })
+      );
+
+      sel.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
+
+      if (statusEl) {
+        statusEl.textContent = `OPS: ${team.name}`;
+      }
+    }
   }
-
-  const teams = [
-    { name: 'MCR1', value: '63' },
-    { name: 'MCR3', value: '68' },
-    { name: 'MCR4', value: '72' },
-    { name: 'MCR5', value: '73' },
-    { name: 'MCR6', value: '79' },
-    { name: 'MCR7', value: '82' },
-    { name: 'MCR8', value: '164' },
-    { name: 'MCR9', value: '165' },
-    { name: 'MCR10', value: '495' },
-    { name: 'MCR11', value: '659' }
-  ];
-
-  const team = teams[Math.floor(Math.random() * teams.length)];
-
-  const label =
-    `${team.name} (Octopus Energy, Affect Energy, Co-op Energy, Bulb, Ebico Living : Domestic)`;
-
-  const option = new Option(label, team.value, true, true);
-
-  const win = document.defaultView || window;
-  const jq = win.$ || win.jQuery;
-
-  if (jq) {
-    jq('#id_operations_team')
-      .append(option)
-      .trigger('change');
-
-    if (statusEl) statusEl.textContent = `OPS: ${team.name}`;
-  } else {
-    sel.appendChild(option);
-    sel.value = team.value;
-    sel.dispatchEvent(new Event('change', { bubbles: true }));
-
-    if (statusEl) statusEl.textContent = `OPS: ${team.name}`;
-  }
-}
 
   function parsePersonalDetails(raw) {
     if (!raw) return null;
-    const parts = raw.split(/\t+|\s{2,}/).map(p => p.trim()).filter(Boolean);
+
+    const parts = raw
+      .split(/\t+|\s{2,}/)
+      .map(p => p.trim())
+      .filter(Boolean);
+
     if (parts.length < 4) return null;
+
     const fullName = parts[0];
     const email = parts[1];
     const mobile = parts[2];
     const dob = parts[3];
-    if (!email.includes('@')) return null;
-    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) return null;
+
+    if (!email.includes("@")) return null;
+
+    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) {
+      return null;
+    }
+
     const nameWords = fullName.split(/\s+/);
-    if (nameWords.length < 2) return null;
+
+    if (nameWords.length < 2) {
+      return null;
+    }
+
     return {
       givenName: clean(nameWords[0]),
-      familyName: clean(nameWords.slice(1).join(" ")),
-      email, mobile, dob
+      familyName: clean(
+        nameWords.slice(1).join(" ")
+      ),
+      email,
+      mobile,
+      dob
     };
   }
 
   function addButton() {
-    const header = Array.from(document.querySelectorAll("h2, h3, legend"))
-      .find(h => norm(h.textContent) === "user details");
-    if (!header || header.dataset.detailsBtnDone) return;
+    const header = Array.from(
+      document.querySelectorAll(
+        "h2, h3, legend"
+      )
+    ).find(
+      h => norm(h.textContent) === "user details"
+    );
+
+    if (
+      !header ||
+      header.dataset.detailsBtnDone
+    ) {
+      return;
+    }
+
     header.dataset.detailsBtnDone = "1";
 
     const btn = document.createElement("button");
+
     btn.type = "button";
     btn.textContent = "Paste details";
+
     Object.assign(btn.style, {
-      marginLeft: "8px", padding: "6px 10px", borderRadius: "6px",
-      border: "1px solid #bbb", cursor: "pointer", background: "white",
+      marginLeft: "8px",
+      padding: "6px 10px",
+      borderRadius: "6px",
+      border: "1px solid #bbb",
+      cursor: "pointer",
+      background: "white"
     });
 
-    // Small status span so we can see what the ops team block is doing
-    const status = document.createElement("span");
+    const status =
+      document.createElement("span");
+
     Object.assign(status.style, {
-      marginLeft: "10px", fontSize: "11px", color: "#666"
+      marginLeft: "10px",
+      fontSize: "11px",
+      color: "#666"
     });
 
-    btn.addEventListener("click", async () => {
-      try {
-        const raw = await navigator.clipboard.readText();
-        if (!raw) { alert("Clipboard is empty."); return; }
+    btn.addEventListener(
+      "click",
+      async () => {
+        try {
+          const raw =
+            await navigator.clipboard.readText();
 
-        const parsed = parsePersonalDetails(raw);
-        if (!parsed) {
-          alert("Couldn't parse. Expected: Name[TAB]email@x.com[TAB]447...[TAB]DD/MM/YYYY");
-          return;
+          if (!raw) {
+            alert("Clipboard is empty.");
+            return;
+          }
+
+          const parsed =
+            parsePersonalDetails(raw);
+
+          if (!parsed) {
+            alert(
+              "Couldn't parse. Expected: " +
+              "Name[TAB]email@x.com[TAB]447..." +
+              "[TAB]DD/MM/YYYY"
+            );
+            return;
+          }
+
+          setVal(
+            findInput(
+              ["given name", "first name"],
+              [
+                "given",
+                "firstname",
+                "first_name",
+                "fname"
+              ]
+            ),
+            parsed.givenName
+          );
+
+          setVal(
+            findInput(
+              [
+                "family name",
+                "last name",
+                "surname"
+              ],
+              [
+                "family",
+                "lastname",
+                "last_name",
+                "surname",
+                "lname"
+              ]
+            ),
+            parsed.familyName
+          );
+
+          setVal(
+            findInput(
+              ["email address", "email"],
+              ["email", "mail"]
+            ),
+            parsed.email
+          );
+
+          setVal(
+            findInput(
+              [
+                "mobile",
+                "phone",
+                "telephone"
+              ],
+              [
+                "mobile",
+                "phone",
+                "tel"
+              ]
+            ),
+            parsed.mobile
+          );
+
+          setVal(
+            findInput(
+              [
+                "date of birth",
+                "dob",
+                "birth date"
+              ],
+              [
+                "dob",
+                "birth",
+                "dateofbirth"
+              ]
+            ),
+            parsed.dob
+          );
+
+          setOpsTeam(status);
+
+          btn.textContent = "Pasted ✓";
+
+          setTimeout(
+            () => {
+              btn.textContent =
+                "Paste details";
+            },
+            2000
+          );
+
+        } catch (e) {
+          console.error(e);
+
+          alert(
+            "Clipboard access failed."
+          );
         }
-
-        setVal(findInput(["given name", "first name"], ["given", "firstname", "first_name", "fname"]), parsed.givenName);
-        setVal(findInput(["family name", "last name", "surname"], ["family", "lastname", "last_name", "surname", "lname"]), parsed.familyName);
-        setVal(findInput(["email address", "email"], ["email", "mail"]), parsed.email);
-        setVal(findInput(["mobile", "phone", "telephone"], ["mobile", "phone", "tel"]), parsed.mobile);
-        setVal(findInput(["date of birth", "dob", "birth date"], ["dob", "birth", "dateofbirth"]), parsed.dob);
-
-        setOpsTeam(status);
-
-        btn.textContent = "Pasted ✓";
-        setTimeout(() => (btn.textContent = "Paste details"), 2000);
-      } catch (e) {
-        console.error(e);
-        alert("Clipboard access failed.");
       }
-    });
+    );
 
     header.appendChild(btn);
     header.appendChild(status);
   }
 
-  const ro = new MutationObserver(() => addButton());
-  ro.observe(document.documentElement, { childList: true, subtree: true });
+  const ro =
+    new MutationObserver(
+      () => addButton()
+    );
+
+  ro.observe(
+    document.documentElement,
+    {
+      childList: true,
+      subtree: true
+    }
+  );
+
   addButton();
 })();
