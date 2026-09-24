@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kraken → Field Appointment
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.1.0
+// @version      1.1.1
 // @description  Open Field and pre-populate appointment details
 // @match        https://kraken.octopus.energy/*
 // @match        https://support.oegb-kraken.energy/*
