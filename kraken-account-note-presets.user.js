@@ -5,6 +5,8 @@
 // @description  Adds a buttons to create pinned account notes from preset options.
 // @match        https://kraken.octopus.energy/*/notes/add/*
 // @match        https://kraken.octopus.energy/*/notes/add/
+// @match        https://support.oegb-kraken.energy/*/notes/add/*
+// @match        https://support.oegb-kraken.energy/*/notes/add/
 // @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        GM_addStyle
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/kraken-account-note-presets.user.js
