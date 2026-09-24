@@ -4,6 +4,7 @@
 // @version      1.1.0
 // @description  Open Field and pre-populate appointment details
 // @match        https://kraken.octopus.energy/*
+// @match        https://support.oegb-kraken.energy/*
 // @match        https://field.oes-prod.energy/*
 // @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        GM_setValue
