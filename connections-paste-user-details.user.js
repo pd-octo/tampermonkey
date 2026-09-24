@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kraken: Shell personal details
 // @namespace    https://github.com/pd-octo/tampermoney
-// @version      1.2.0
+// @version      1.2.1
 // @description  Paste single-line personal details from clipboard and auto-fill User details fields on Kraken
 // @author       Paul Davidson
 // @match        https://*.octopus.energy/*
