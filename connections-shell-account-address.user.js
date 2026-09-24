@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kraken: Shell account address
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.2.0
+// @version      1.2.1
 // @description  Paste a single-line UK address from clipboard and auto-fill Billing address fields on Kraken
 // @author       Paul Davidson
 // @match        https://*.octopus.energy/*
