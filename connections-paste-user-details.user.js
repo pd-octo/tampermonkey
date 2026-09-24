@@ -6,6 +6,7 @@
 // @author       Paul Davidson
 // @match        https://*.octopus.energy/*
 // @match        https://kraken.octopus.energy/*
+// @match        https://support.oegb-kraken.energy/*
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermoney/main/connections-paste-user-details.user.js
 // @updateURL    https://raw.githubusercontent.com/pd-octo/tampermoney/main/connections-paste-user-details.user.js
