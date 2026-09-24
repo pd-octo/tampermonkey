@@ -5,6 +5,7 @@
 // @description  Button to paste UK address from clipboard into Add Property form (only on add-without-meter-points route), SPA-safe
 // @author       Paul Davidson
 // @match        https://kraken.octopus.energy/*properties*
+// @match        https://support.oegb-kraken.energy/*properties*
 // @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-paste-address-in-properties.user.js
