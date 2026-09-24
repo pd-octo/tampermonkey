@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kraken Enrol Helper - Set SSD & Reg Type (Top Button)
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.2.0
+// @version      1.2.1
 // @description  Sets Supply start date to Earliest SSD, selects New Connection reg type, clicks Enrol.
 // @match        https://kraken.octopus.energy/electricity/journeys/meter-point/*/enrol/
 // @match        https://kraken.octopus.energy/electricity/journeys/meter-point/*/enrol
