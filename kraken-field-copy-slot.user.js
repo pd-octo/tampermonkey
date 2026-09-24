@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kraken Field - Copy Job / Date / Slot
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.4.0
+// @version      1.4.1
 // @description  Adds buttons to copy appointment details.
 // @match        https://field.oes-prod.energy/jobs-projects/jobs/J-*
 // @match        https://pd-octo.github.io/tampermonkey/*
