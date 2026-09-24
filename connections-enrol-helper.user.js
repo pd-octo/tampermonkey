@@ -5,6 +5,8 @@
 // @description  Sets Supply start date to Earliest SSD, selects New Connection reg type, clicks Enrol.
 // @match        https://kraken.octopus.energy/electricity/journeys/meter-point/*/enrol/
 // @match        https://kraken.octopus.energy/electricity/journeys/meter-point/*/enrol
+// @match        https://support.oegb-kraken.energy/electricity/journeys/meter-point/*/enrol/
+// @match        https://support.oegb-kraken.energy/electricity/journeys/meter-point/*/enrol
 // @match        https://pd-octo.github.io/tampermonkey/*
 // @run-at       document-idle
 // @grant        none
