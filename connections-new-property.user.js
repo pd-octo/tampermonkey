@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Connections: New property (Existing vs New account)
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.1.0
+// @version      1.1.1
 // @description  Paste UK postcode from clipboard, set today's date, and choose either Existing account or New account in same portfolio (SPA-safe)
 // @match        https://kraken.octopus.energy/accounts/*/properties/add/*
 // @match        https://support.oegb-kraken.energy/*/properties/add/*
