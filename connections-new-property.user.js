@@ -4,6 +4,7 @@
 // @version      1.1.0
 // @description  Paste UK postcode from clipboard, set today's date, and choose either Existing account or New account in same portfolio (SPA-safe)
 // @match        https://kraken.octopus.energy/accounts/*/properties/add/*
+// @match        https://support.oegb-kraken.energy/*/properties/add/*
 // @match        https://pd-octo.github.io/tampermonkey/*
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/pd-octo/tampermonkey/main/connections-new-property.user.js
