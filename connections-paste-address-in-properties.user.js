@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kraken: Paste full address in Properties (scoped + styled)
 // @namespace    https://github.com/pd-octo/tampermonkey
-// @version      1.6.0
+// @version      1.6.1
 // @description  Button to paste UK address from clipboard into Add Property form (only on add-without-meter-points route), SPA-safe
 // @author       Paul Davidson
 // @match        https://kraken.octopus.energy/*properties*
